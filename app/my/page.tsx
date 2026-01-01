@@ -23,16 +23,35 @@ export default async function MyPage() {
             <div className="flex flex-col items-center">
                 <h1 className="flex justify-center mt-12 text-4xl font-bold">我的好友</h1>
                 <h2 className="mt-6 text-lg font-medium">今天是1月2日，共有2位好友在线</h2>
-                <ul className="mt-6 w-full max-w-2xl px-4 flex flex-col gap-4 list-none transition-transform duration-200  ">
+                <ul className="mt-6 w-full max-w-2xl px-4 flex flex-col gap-4 list-none">
                     {friends.map((friend) => (
-                        <li className="w-full flex flex-col items-start rounded-xl p-4 bg-slate-100 hover:-translate-y-1" key={friend.id}>
-                            <h2 className="text-2xl mt-2 ">{friend.name}</h2>
-                            <div className="flex text-xl text-slate-500 ml-100 flex-row items-center gap-2">
-                                <p className="text-sm text-slate-500">{friend.stack}</p>
-                                <p>{friend.status}</p>
-                                <p className="ml-10">...</p>
+                        <li
+                            className="w-full rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                            key={friend.id}
+                        >
+                            <div className="flex items-start justify-between gap-3">
+                                <h2 className="text-2xl font-semibold leading-tight">{friend.name}</h2>
+                                <span
+                                    className={[
+                                        "shrink-0 rounded-full px-2.5 py-1 text-xs font-medium",
+                                        friend.status === "在线"
+                                            ? "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200"
+                                            : "bg-slate-50 text-slate-600 ring-1 ring-slate-200",
+                                    ].join(" ")}
+                                >
+                                    {friend.status}
+                                </span>
                             </div>
-                           
+
+                            <div className="mt-2 flex items-center justify-between gap-3 text-sm text-slate-600">
+                                <p className="truncate">{friend.stack}</p>
+                                <button
+                                    type="button"
+                                    className="shrink-0 rounded-md px-2 py-1 text-slate-500 hover:bg-slate-100 hover:text-slate-700"
+                                >
+                                    ...
+                                </button>
+                            </div>
                         </li>
                     ))}
                 </ul>
