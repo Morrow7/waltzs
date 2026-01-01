@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import { findPostById } from "@/lib/db";
 
-const mockPosts = [
-    { id: "1", title: "静静的顿河" },
-    { id: "2", title: "人月神话" },
-    { id: "3", title: "麦琪的礼物" },
-];
+export const runtime = "nodejs";
 
 export async function GET(
-    request: NextRequest,
+    _request: NextRequest,
     { params }: { params: { id: string } }
 ) {
-    const post = mockPosts.find((p) => p.id === params.id);
+    const post = await findPostById(params.id);
     if (!post) {
         return NextResponse.json(
             { message: "Not found" },
@@ -19,4 +16,3 @@ export async function GET(
     }
     return NextResponse.json(post);
 }
-

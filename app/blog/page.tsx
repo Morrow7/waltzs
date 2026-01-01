@@ -1,25 +1,11 @@
-import Link from "next/link";
 
-type Post = {
-  id: string;
-  title: string;
-  content: string;
-};
+import { listPosts, type Post } from "@/lib/db";
 
-async function getPosts(): Promise<Post[]> {
-  const res = await fetch("http://localhost:3000/api/posts", {
-    cache: "no-store"
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch posts");
-  }
-
-  return res.json();
-}
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
-  const posts = await getPosts();
+  const posts: Post[] = await listPosts();
   return (
     <main>
       <h1 className="flex justify-center mt-12 text-3xl font-bold">我的书架</h1>
