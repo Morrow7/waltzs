@@ -13,10 +13,17 @@ const mockdev = [
     { id: "4", num: "2027", title: "现在与未来", content: "今天是2026年月1日，我正在探索AI沉浸式阅读" },
 ];
 
+const mockTeam = [
+    { id: "1", name: "李文浩", position: "全栈开发" },
+    { id: "2", name: "高苏雅", position: "全栈开发" },
+    { id: "3", name: "张文彤", position: "全栈开发" },
+]
+
 export async function GET() {
     return NextResponse.json({
         targets: mocktarget,
         developments: mockdev,
+        teams: mockTeam,
     });
 }
 

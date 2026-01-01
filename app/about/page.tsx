@@ -11,7 +11,12 @@ type Development = {
     content: string;
 }
 
-type AboutData = { targets: Target[], developments: Development[] }
+type Team={
+    id: string;
+    name: string;
+    position: string;
+}
+type AboutData = { targets: Target[], developments: Development[], teams: Team[] }
 /**
  * 获取目标列表的异步函数
  * @returns {Promise<target[]>} 返回一个Promise，解析为目标数组
@@ -35,8 +40,8 @@ export default async function MyPage() {
     const data = await getList();
 
     return (
-        <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-            <h1 className="flex justify-center mt-12 text-3xl font-bold">关于我们</h1>
+        <main className=" bg-gradient-to-b from-slate-50  to-white">
+            <h1 className="flex justify-center mt-0 text-3xl font-bold">关于我们</h1>
 
             <ul className="flex flex-row flex-wrap items-center justify-center mt-12 transition-transform duration-200 hover:-translate-y-1 hover：scale-105 px-20 gap-10">
                 {data.targets.map((item) => (
@@ -66,6 +71,29 @@ export default async function MyPage() {
                     </li>
                 ))}
             </ul>
+
+            <h1 className="flex justify-center mt-36 text-3xl font-bold">创始团队</h1>
+            <h2 className="flex justify-center mt-10 text-xl font-bold">由热爱代码的团队共同制作</h2>
+            <ul className="flex flex-row flex-wrap items-center justify-center mt-12 transition-transform duration-200 hover:-translate-y-1 hover：scale-105 px-30 gap-40">
+                {data.teams.map((item) => (
+                    <li
+                        className=""
+                        key={item.id}
+                    >
+                        <p className="mt-4 justify-center flex">{item.name}</p>
+                        <p className="mt-4 justify-center flex">{item.position}</p>
+                    </li>
+                ))}
+            </ul>
+            <div >
+              <div className="bg-blue-400 p-6 rounded-xl shadow-md mt-20 mb-10 mx-20 text-white">
+                <h1 className="text-2xl font-bold">加入我们的旅途</h1>
+                <h2 className="mt-4">如果您对代码有独特的见解和创意，我们欢迎您加入我们的团队。</h2>
+                <p className="mt-4">联系我们：<a href="mailto:contact@example.com">susu997y@gmail.com</a></p>
+                <p className="mt-4">地址：四川省成都市二环高架桥地下室</p>
+                <p className="mt-4">加入我们的旅程，让我们一起创造出更多的价值！</p>
+              </div>
+            </div>
         </main>
     );
 }
