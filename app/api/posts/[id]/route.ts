@@ -5,9 +5,10 @@ export const runtime = "nodejs";
 
 export async function GET(
     _request: NextRequest,
-    { params }: { params: { id: string } }
+    context: { params: Promise<{ id: string }> }
 ) {
-    const post = await findPostById(params.id);
+    const { id } = await context.params;
+    const post = await findPostById(id);
     if (!post) {
         return NextResponse.json(
             { message: "Not found" },
