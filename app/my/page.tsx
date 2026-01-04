@@ -6,7 +6,7 @@ type friend = {
 }
 
 export async function getList(): Promise<friend[]> {
-    const res = await fetch("http://localhost:3000/api/my", {
+    const res = await fetch("/api/my", {
         cache: "no-store"
     });
     if (!res.ok) {

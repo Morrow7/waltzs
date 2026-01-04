@@ -2,11 +2,7 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import { createRequire } from "node:module";
 
-declare global {
-  interface GlobalThis {
-    mysqlPool?: any;
-  }
-}
+const globalForMysql = globalThis as unknown as { mysqlPool?: any };
 
 function loadMysql2Promise() {
   try {
@@ -33,7 +29,7 @@ function getMysqlConfig() {
 }
 
 export function getPool() {
-  if (globalThis.mysqlPool) return globalThis.mysqlPool;
+  if (globalForMysql.mysqlPool) return globalForMysql.mysqlPool;
 
   const { host, port, user, password, database } = getMysqlConfig();
 
@@ -58,6 +54,6 @@ export function getPool() {
     },
   });
 
-  globalThis.mysqlPool = pool;
+  globalForMysql.mysqlPool = pool;
   return pool;
 }

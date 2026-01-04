@@ -22,17 +22,12 @@ type AboutData = { targets: Target[], developments: Development[], teams: Team[]
  * @returns {Promise<target[]>} 返回一个Promise，解析为目标数组
  */
 export async function getList(): Promise<AboutData> {
-    // 发起HTTP GET请求到本地API端点，不使用缓存
-    const res = await fetch("http://localhost:3000/api/about", {
-        cache: "no-store"  // 禁用缓存以确保获取最新数据
+    const res = await fetch("/api/about", {
+        cache: "no-store"
     });
-    // 检查响应是否成功
     if (!res.ok) {
-        // 如果响应不成功，抛出错误
         throw new Error("Failed to fetch data");
     }
-
-    // 解析响应体为JSON格式并返回
     return res.json();
 }
 
@@ -43,7 +38,7 @@ export default async function MyPage() {
         <main className=" bg-gradient-to-b from-slate-50  to-white">
             <h1 className="flex justify-center mt-0 text-3xl font-bold">关于我们</h1>
 
-            <ul className="flex flex-row flex-wrap items-center justify-center mt-12 transition-transform duration-200 hover:-translate-y-1 hover：scale-105 px-20 gap-10">
+            <ul className="flex flex-row flex-wrap items-center justify-center mt-12 transition-transform duration-200 hover:-translate-y-1 hover:scale-105 px-20 gap-10">
                 {data.targets.map((item) => (
                     <li
                         className="w-[320px] h-[180px] rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-colors duration-200 hover:bg-slate-50 mf-20"
@@ -74,7 +69,7 @@ export default async function MyPage() {
 
             <h1 className="flex justify-center mt-36 text-3xl font-bold">创始团队</h1>
             <h2 className="flex justify-center mt-10 text-xl font-bold">由热爱代码的团队共同制作</h2>
-            <ul className="flex flex-row flex-wrap items-center justify-center mt-12 transition-transform duration-200 hover:-translate-y-1 hover：scale-105 px-30 gap-40">
+            <ul className="flex flex-row flex-wrap items-center justify-center mt-12 transition-transform duration-200 hover:-translate-y-1 hover:scale-105 px-30 gap-40">
                 {data.teams.map((item) => (
                     <li
                         className=""
