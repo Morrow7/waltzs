@@ -11,18 +11,21 @@ type Development = {
     content: string;
 }
 
-type Team={
+type Team = {
     id: string;
     name: string;
     position: string;
 }
 type AboutData = { targets: Target[], developments: Development[], teams: Team[] }
-/**
- * 获取目标列表的异步函数
- * @returns {Promise<target[]>} 返回一个Promise，解析为目标数组
- */
+
+function getBaseUrl() {
+    const env = process.env.NEXT_PUBLIC_SITE_URL;
+    if (env && env.length > 0) return env;
+    return "http://localhost:3000";
+}
+
 export async function getList(): Promise<AboutData> {
-    const res = await fetch("/api/about", {
+    const res = await fetch(`${getBaseUrl()}/api/about`, {
         cache: "no-store"
     });
     if (!res.ok) {
@@ -81,13 +84,13 @@ export default async function MyPage() {
                 ))}
             </ul>
             <div >
-              <div className="bg-blue-400 p-6 rounded-xl shadow-md mt-20 mb-10 mx-20 text-white">
-                <h1 className="text-2xl font-bold">加入我们的旅途</h1>
-                <h2 className="mt-4">如果您对代码有独特的见解和创意，我们欢迎您加入我们的团队。</h2>
-                <p className="mt-4">联系我们：<a href="mailto:contact@example.com">susu997y@gmail.com</a></p>
-                <p className="mt-4">地址：四川省成都市二环高架桥地下室</p>
-                <p className="mt-4">加入我们的旅程，让我们一起创造出更多的价值！</p>
-              </div>
+                <div className="bg-blue-400 p-6 rounded-xl shadow-md mt-20 mb-10 mx-20 text-white">
+                    <h1 className="text-2xl font-bold">加入我们的旅途</h1>
+                    <h2 className="mt-4">如果您对代码有独特的见解和创意，我们欢迎您加入我们的团队。</h2>
+                    <p className="mt-4">联系我们：<a href="mailto:contact@example.com">susu997y@gmail.com</a></p>
+                    <p className="mt-4">地址：四川省成都市二环高架桥地下室</p>
+                    <p className="mt-4">加入我们的旅程，让我们一起创造出更多的价值！</p>
+                </div>
             </div>
         </main>
     );

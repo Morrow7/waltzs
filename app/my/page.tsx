@@ -1,12 +1,18 @@
-type friend = {
+type Friend = {
     id: string;
     name: string;
     stack: string;
     status: "在线" | "不在线";
 }
 
-export async function getList(): Promise<friend[]> {
-    const res = await fetch("/api/my", {
+function getBaseUrl() {
+    const env = process.env.NEXT_PUBLIC_SITE_URL;
+    if (env && env.length > 0) return env;
+    return "http://localhost:3000";
+}
+
+export async function getList(): Promise<Friend[]> {
+    const res = await fetch(`${getBaseUrl()}/api/my`, {
         cache: "no-store"
     });
     if (!res.ok) {
